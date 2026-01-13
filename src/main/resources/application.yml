@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: moneymgmt
+
+  output:
+    ansi:
+      enabled: always
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/moneymgmt
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  mail:
+    host: smtp-relay.brevo.com
+    port: 587
+    username: ${BREVO_USERNAME}
+    password: ${BREVO_PASSWORD}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          from: ${BREVO_FROM_EMAIL}
+
+server:
+  servlet:
+    context-path: /api/v1.0
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}              # Put a 64+ char Base64 encoded key
+    expiration:
+      access-ms: 900000               # 15 minutes
+      refresh-ms: 1209600000          # 14 days
+
